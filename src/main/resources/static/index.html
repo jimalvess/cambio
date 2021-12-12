@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Cadastro Duplicador</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="js/DuplicadorController.js"></script> 
+        <script>
+            let duplicadorController = new DuplicadorController();
+            duplicadorController.listar();
+        </script>
+    </head>
+    <body>
+        <br><br>
+        <label>Pesquisar:</label>
+        <input type="text" oninput="duplicadorController.pesquisar()" id="pesquisar" />
+      
+        <br><br>
+        <table>
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Nome</th>
+                    <th>Celular</th>
+                    <th>E-mail</th>
+                    <th>Pix</th>
+                    <th>Login</th>
+                    <th>Senha</th>
+                </tr>
+            </thead>
+            <tbody id="corpoTabela"></tbody>
+        </table>
+        <br><br>
+        <label>Id:</label><input type="text" id="id" readonly="readonly"/>
+        <br><br>
+        <label>Nome:</label><input type="text" id="nome" />
+        <br><br>
+        <label>Celular:</label><input type="text" id="celular"  />
+        <br><br>
+        <label>E-mail:</label><input type="text" id="email"  />
+        <br><br>
+        <label>Pix:</label><input type="text" id="pix"  />
+        <br><br>
+        <label>Login:</label><input type="text" id="login"  />
+        <br><br>
+        <label>Senha:</label><input type="text" id="senha"  />
+        <br><br>
+        <button type="button" id="confirmar" onclick="duplicadorController.confirmar()">Confirmar</button>
+        <button type="button" id="limpar" onclick="duplicadorController.limpar()">Limpar</button>
+    </body>
+</html>
