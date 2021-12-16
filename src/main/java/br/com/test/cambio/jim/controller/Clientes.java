@@ -97,30 +97,12 @@ public class Clientes {
     @RequestMapping(path = "/clientes/{id}", method = RequestMethod.DELETE)
     @ResponseStatus(HttpStatus.OK)
     public void apagar(@PathVariable int id){
-         //List<Encomenda> encomendas = (List<Encomenda>) encomendaDAO.findAll();
-         //encomendas.stream().filter((listaEncomendas) -> (listaEncomendas.getCliente().getId() == id)).forEachOrdered((_item) -> {
-         //    throw new Proibido("ATENÇÃO: Cliente com encomenda ativa. Exclua a encomenda antes de remover este cliente");
-        //});
+
         if (clienteDAO.existsById(id)){
             clienteDAO.deleteById(id);
         }else {
             throw new NaoEncontrado("CLIENTE não encontrado");
         }
     } 
-    
-/////////////// PESQUISA PIZZAS POR NOME DO CLIENTE ////////////////////////   
-    //LOCALHOST:8080/api/pizzas/pesquisar/pizzasDoCliente/?nome=cliGuasca
-    /*
-     @RequestMapping( path = "/clientes/pesquisar/clientesDumaPizza/", method = RequestMethod.GET)
-     public List <Cliente> buscarClientesDumaPizza(@RequestParam(required = true) String nome){
-         
-         if(nome !=null){
-            return clienteDAO.listarClientesDumaPizza(nome);
-        } else{
-        throw new RequisicaoInvalida("Escolha o NOME DE UMA PIZZA para pesquisar...");
-         
-        }
-     }
-     */         
 
 }

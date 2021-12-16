@@ -36,6 +36,8 @@ public class Usuarios {
     
     public static final PasswordEncoder PASSWORD_ENCODER = new BCryptPasswordEncoder();
 
+///////////////// TROCA SENHA: //////////////////////////
+    
     public Usuario inserirOld(@RequestBody Usuario usuario) {
         usuario.setId(0);
         usuario.setSenha(PASSWORD_ENCODER.encode(usuario.getNovaSenha()));
@@ -45,6 +47,8 @@ public class Usuarios {
         Usuario usuarioSalvo = usuarioDAO.save(usuario);
         return usuarioSalvo;
     }
+    
+///////////////// INSERIR USUÁRIO //////////////////////////
     
     @RequestMapping(path = "/usuarios", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
@@ -64,11 +68,16 @@ public class Usuarios {
     @Autowired
     UsuarioDAO usuarioDAO;
 
+    
+///////////////// LISTA USUÁRIOS //////////////////////////
+    
 @PreAuthorize("hasAuthority('administrador')")
 @RequestMapping(path = "/usuarios", method = RequestMethod.GET)
 public Iterable<Usuario> listar() {
     return usuarioDAO.findAll();
 }
+
+/////////////////// LISTA UM USUÁRIO PELA ID //////////////////
 
 @RequestMapping(path = "/usuarios/{id}", method = RequestMethod.GET)
 public Usuario recuperar(@AuthenticationPrincipal MeuUser usuarioAut, 
@@ -81,6 +90,8 @@ public Usuario recuperar(@AuthenticationPrincipal MeuUser usuarioAut,
     }
 }
 
+////////////////// ATUALIZA UM USUÁRIO PELA ID /////////////////
+
     @RequestMapping(path = "/usuarios/{id}", method = RequestMethod.PUT)
     @ResponseStatus(HttpStatus.OK)
     public void atualizar(@PathVariable int id, @RequestBody Usuario usuario) {
@@ -89,6 +100,8 @@ public Usuario recuperar(@AuthenticationPrincipal MeuUser usuarioAut,
             usuarioDAO.save(usuario);
         }
     }
+    
+///////////////// DELETA UM USUÁRIO PELA ID //////////////////////    
 
     @RequestMapping(path = "/usuarios/{id}", method = RequestMethod.DELETE)
     @ResponseStatus(HttpStatus.OK)
@@ -98,6 +111,8 @@ public Usuario recuperar(@AuthenticationPrincipal MeuUser usuarioAut,
         }
 
     }
+    
+//////////////// PRA O USUÁRIO LOGAR /////////////////////////    
 
     @RequestMapping(path = "/usuarios/loginOld/", method = RequestMethod.GET)
     public Usuario login(@RequestParam String usuario, 
@@ -112,9 +127,11 @@ public Usuario recuperar(@AuthenticationPrincipal MeuUser usuarioAut,
         }
         throw  new NaoEncontrado("Usuário e/ou senha incorreto(s)");
     }
+    
+///////////// DEFINE O SEGREDO DA CRIPTOGRAFIA /////////////////////////    
 
     public static final String SEGREDO= 
-        "string grande para c*, usada como chave para assinatura! Queijo!";
+        "não há quem pinte um retrado de um bochincho quando estoura";
     @RequestMapping(path = "/usuarios/login/", method = RequestMethod.GET)
     public ResponseEntity<Usuario> loginToken(@RequestParam String usuario,
             @RequestParam String senha) throws UnsupportedEncodingException {
